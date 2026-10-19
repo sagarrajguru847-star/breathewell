@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#f4f8f7"><title>BreatheWell — Asthma tracker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <a class="brand" href="#"><span class="brand-mark">✳</span><span>Breathe<span class="brand-light">Well</span></span></a>
+    <div class="workspace"><div class="avatar">A</div><div><b>My health space</b><small>Personal tracker</small></div><span class="chev">⌄</span></div>
+    <div class="nav-label">TRACKER</div>
+    <nav><a class="nav-link active" href="#overview"><span>◫</span>Overview</a><a class="nav-link" href="#log"><span>＋</span>Daily check-in</a><a class="nav-link" href="#history"><span>◷</span>My history</a></nav>
+    <div class="sidebar-bottom"><div class="support-icon">♡</div><b>Care, at your pace.</b><p>Small check-ins can make conversations with your care team easier.</p></div>
+    <div class="privacy"><span>▣</span> Your data stays on this device</div>
+  </aside>
+  <main>
+    <header class="topbar"><div class="breadcrumb">My health space <span>/</span> <b>Overview</b></div><div class="top-actions"><span class="today" id="today-label"></span><button class="icon-button" aria-label="Notifications">♧</button><div class="profile">A</div></div></header>
+    <div class="content" id="overview">
+      <section class="greeting"><div><div class="eyebrow"><span class="live-dot"></span> PERSONAL ASTHMA WORKSPACE</div><h1>Your breathing, over time<span class="wave">✳</span></h1><p>Log daily observations, explore your 4D timeline, and take a clear record to your care team.</p></div><div class="heading-actions"><button class="outline-button" id="export-data">↓ &nbsp;Export records</button><button class="primary-button" id="checkin-top">＋ &nbsp;New check-in</button></div></section>
+      <div class="emergency"><span class="emergency-icon">!</span><div><b>Having a severe breathing emergency?</b><span>This tracker cannot provide emergency care. Contact your local emergency number or follow your clinician’s action plan.</span></div><button class="dismiss" aria-label="Dismiss notice">×</button></div>
+      <section class="stats-grid">
+        <article class="stat-card"><div class="stat-top"><span>SYMPTOMS TODAY</span><span class="stat-icon lilac">⌁</span></div><div class="stat-value" id="stat-symptom">—<small>/ 10</small></div><div class="stat-foot" id="stat-symptom-foot">No check-in yet today</div><div class="stat-line"><i class="line-lilac"></i></div></article>
+        <article class="stat-card"><div class="stat-top"><span>30-DAY AVERAGE</span><span class="stat-icon mint">∿</span></div><div class="stat-value" id="stat-average">—<small>/ 10</small></div><div class="stat-foot">Across your recorded days</div><div class="stat-line"><i class="line-mint"></i></div></article>
+        <article class="stat-card"><div class="stat-top"><span>RELIEVER PUFFS</span><span class="stat-icon peach">♧</span></div><div class="stat-value" id="stat-puffs">0<small> total</small></div><div class="stat-foot">Recorded in the last 30 days</div><div class="stat-line"><i class="line-peach"></i></div></article>
+        <article class="stat-card"><div class="stat-top"><span>DAYS WITH CHECK-INS</span><span class="stat-icon blue">▦</span></div><div class="stat-value" id="stat-week">0<small>/ 30 days</small></div><div class="stat-foot">Personal record coverage</div><div class="stat-line"><i class="line-blue"></i></div></article>
+      </section>
+      <section class="timeline-layout" id="history">
+        <article class="panel timeline-panel"><div class="panel-heading"><div><div class="eyebrow small-eyebrow">3D ANATOMY · TIME-BASED PLAYBACK</div><h2>Breathing timeline</h2><p>Rotate the model, then scrub or play across your logged days.</p></div><span class="chip"><i></i> 4D VIEW</span></div>
+          <div class="scene-wrap"><div id="lung3d" aria-label="Interactive animated 3D lung model"></div><div class="scene-vignette"></div><div class="scene-title"><span class="scene-dot"></span><span id="selected-date">TODAY</span><small id="scene-state">NO CHECK-IN</small></div><div class="scene-metrics"><div><small>SYMPTOMS</small><b id="scene-symptom">—<i>/10</i></b></div><div><small>RELIEVER</small><b id="scene-puffs">—<i>puffs</i></b></div><div><small>PEAK FLOW</small><b id="scene-flow">—<i>L/min</i></b></div></div><button class="scene-reset" id="reset-view">Reset view ↻</button><div class="stage-glow"></div></div>
+          <div class="timeline-controls"><button class="play-button" id="history-play" aria-label="Play timeline">▶</button><div class="timeline-scrubber"><div class="scrub-top"><span>30-DAY PLAYBACK</span><span id="playback-count">DAY 30 / 30</span></div><input id="time-scrubber" type="range" min="0" max="29" value="29" aria-label="Scrub through the last thirty days"><div class="scrub-labels"><span id="range-start">30 DAYS AGO</span><span>TODAY</span></div></div><label class="speed-label">SPEED <select id="playback-speed"><option value="1300">1×</option><option value="650">2×</option><option value="300">4×</option></select></label></div><div id="timeline-bars" class="timeline-bars" aria-label="Daily symptom timeline"></div>
+          <div class="timeline-legend"><span><i class="legend-dot logged"></i>Logged day</span><span><i class="legend-dot empty-day"></i>No entry</span><span class="time-note">The model is illustrative; data points are your records.</span></div>
+        </article>
+        <aside class="panel insight-panel"><div class="panel-heading"><div><div class="eyebrow small-eyebrow">PYTHON-GENERATED SUMMARY</div><h2>Patterns in your log</h2><p>Descriptive summaries from the last 30 days</p></div><span class="python-badge">Py</span></div><div id="insight-list" class="insight-list"><div class="insight-empty">Add a few check-ins to see your own patterns here.</div></div><div class="trigger-summary"><div class="trigger-head"><b>Triggers you logged</b><span>BY DAYS</span></div><div id="trigger-list"><span class="muted-note">No trigger entries yet.</span></div></div><div class="insight-foot">Summaries describe what you entered; they do not establish cause or provide medical advice.</div></aside>
+      </section>
+      <section class="bottom-row"><article class="panel history-panel"><div class="panel-heading"><div><h2>Recent check-ins</h2><p>Your latest daily observations</p></div><button class="text-button" id="view-all">View all <span>→</span></button></div><div id="entry-list" class="entry-list"><div class="empty"><div>◷</div><b>Your check-ins will appear here</b><span>Log how you’re feeling to start building your history.</span></div></div></article>
+        <article class="panel quick-panel" id="log"><div class="panel-heading"><div><h2>Quick check-in</h2><p>A few details about today</p></div><span class="quick-mark">✳</span></div>
+          <form id="entry-form"><label class="field-label" for="entry-date">Date of observation <span class="optional">BACKFILL ALLOWED</span></label><input class="number-input" id="entry-date" type="date"><label class="field-label" for="symptom">How strong were your symptoms? <span id="symptom-value">0 / 10</span></label><input id="symptom" type="range" min="0" max="10" value="0"><div class="range-ends"><span>None</span><span>Strong</span></div>
+            <label class="field-label" for="puffs">Reliever inhaler puffs <span class="optional">OPTIONAL</span></label><input class="number-input" id="puffs" type="number" min="0" max="50" value="0">
+            <label class="field-label" for="peak">Peak flow reading <span class="optional">OPTIONAL</span></label><div class="input-unit"><input class="number-input" id="peak" type="number" min="1" max="1999" placeholder="Add reading"><span>L/min</span></div>
+            <label class="field-label">Possible triggers <span class="optional">OPTIONAL</span></label><div class="trigger-list"><label><input type="checkbox" value="Pollen"><span>Pollen</span></label><label><input type="checkbox" value="Dust"><span>Dust</span></label><label><input type="checkbox" value="Exercise"><span>Exercise</span></label><label><input type="checkbox" value="Weather"><span>Weather</span></label><label><input type="checkbox" value="Smoke"><span>Smoke</span></label><label><input type="checkbox" value="Other"><span>Other</span></label></div>
+            <label class="field-label" for="note">A note for yourself <span class="optional">OPTIONAL</span></label><textarea id="note" rows="2" maxlength="500" placeholder="Anything else you’d like to remember?"></textarea>
+            <button class="primary-button save-button" type="submit">Save check-in <span>→</span></button><div class="form-message" id="form-message" role="status"></div>
+          </form>
+        </article></section>
+      <footer>For personal tracking and discussion with your care team. This app does not diagnose, treat, or replace medical advice.</footer>
+    </div>
+  </main>
+  <script defer src="/app.js"></script>
+</body>
+</html>
